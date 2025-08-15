@@ -25,8 +25,32 @@ const eslintConfig = [
           varsIgnorePattern: "^_", // _로 시작하는 변수는 무시
         },
       ],
+      // console 직접 호출 금지
+      "no-console": "error",
+      // localStorage, sessionStorage 직접 호출 금지
+      "no-restricted-globals": [
+        "error",
+        {
+          name: "localStorage",
+          message:
+            "Use localStorageWrapper from '@/services/localStorage' instead of direct localStorage access.",
+        },
+        {
+          name: "sessionStorage",
+          message:
+            "Use sessionStorageWrapper from '@/services/sessionStorage' instead of direct sessionStorage access.",
+        },
+      ],
     },
   }),
+  // services 폴더 내에서는 예외 허용
+  {
+    files: ["src/services/**/*.ts"],
+    rules: {
+      "no-console": "off",
+      "no-restricted-globals": "off",
+    },
+  },
 ]
 
 export default eslintConfig
